@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "favmovies",
+    "slug": "favmovies",
+    "version": "1.0.0",
+    "assetBundlePatterns": ["**/*"]
+  },
+  "assetBundlePatterns": ["**/*"],
+  "packagerOpts": {
+    "config": "metro.config.js",
+    "sourceExts": [
+      "expo.ts",
+      "expo.tsx",
+      "expo.js",
+      "expo.jsx",
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "wasm",
+      "svg"
+    ]
+  },
+  "extra": {
+    "eas": {
+      "projectId": "a847a22d-0271-4f45-a946-adf80f58cf76"
+    }
+  }
+}
