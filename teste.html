@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Listar Filmes Populares</title>
+</head>
+<body>
+
+<h1>Filmes Populares (JSON)</h1>
+
+<div id="moviesJson"></div>
+<div id="pagination">
+  <button id="prevBtn" onclick="prevPage()">Anterior</button>
+  <span id="currentPage"></span>
+  <button id="nextBtn" onclick="nextPage()">Próximo</button>
+</div>
+
+<script>
+  const apiKey = '6e7e588cc2d3e2063f2799b84c43e4d1';
+  const moviesJsonContainer = document.getElementById('moviesJson');
+  const paginationContainer = document.getElementById('pagination');
+  let currentPage = 1;
+
+  // Função para fazer a requisição à API com paginação
+  async function fetchMoviesByPage(page) {
+    try {
+      const response = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&include_adult=false&include_video=false&language=pt-BR&page=${page}&sort_by=popularity.desc`);
+      const data = await response.json();
+      displayMoviesJson(data);
+
+      // Atualiza a página atual
+      currentPage = page;
+      document.getElementById('currentPage').textContent = `Página: ${currentPage}`;
+    } catch (error) {
+      console.error('Erro ao buscar dados da API:', error);
+    }
+  }
+
+  // Função para exibir os dados JSON na página
+  function displayMoviesJson(data) {
+    // Converte o objeto JSON em uma string formatada
+    const jsonData = JSON.stringify(data, null, 2);
+
+    // Adiciona a string JSON formatada ao contêiner
+    moviesJsonContainer.textContent = jsonData;
+  }
+
+  // Função para ir para a página anterior
+  function prevPage() {
+    if (currentPage > 1) {
+      fetchMoviesByPage(currentPage - 1);
+    }
+  }
+
+  // Função para ir para a próxima página
+  function nextPage() {
+    fetchMoviesByPage(currentPage + 1);
+  }
+
+  // Chama a função para buscar filmes populares na página 1 ao carregar a página
+  fetchMoviesByPage(1);
+</script>
+
+</body>
+</html>
